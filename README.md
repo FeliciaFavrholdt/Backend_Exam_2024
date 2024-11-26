@@ -8,6 +8,34 @@ borrowed items. Theoretical questions are part of the exercise.
 # Domain description
 The application manages items and their borrowing status.
 
+my-javalin-app/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── dk/studiofavrholdt/
+│   │   │   │   ├── config/
+│   │   │   │   │   └── HibernateConfig.java
+│   │   │   │   ├── controllers/
+│   │   │   │   ├── daos/
+│   │   │   │   ├── dtos/
+│   │   │   │   ├── entities/
+│   │   │   │   ├── enums/
+│   │   │   │   ├── exceptions/
+│   │   │   │   ├── routes/
+│   │   │   │   ├── security/
+│   │   │   │   ├── utils/
+│   │   │   │   ├── Main.java
+│   │   └── resources/
+│   │       └── http/
+│   │       │   └── dev.http
+│   │       ├── config.properties
+│   │       ├── logback.xml
+│   └── test/
+├── pom.xml
+├── .gitignore
+├── README.md
+
+
 Item:
 Attributes: id, name, purchasePrice, category, acquisitionDate, description.
 Category: Enum (VIDEO, VR, SOUND, PRINT, TOOL).

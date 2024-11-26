@@ -1,0 +1,114 @@
+### A simple GET request to the test endpoint. No need for login
+GET {{url}}/auth/test/
+
+### Populate the database with some data
+GET {{url}}/items/populate/
+
+### Create a new user - this one will only get a USER role by default
+POST {{url}}/auth/register/
+
+{
+    "username": "testuser",
+    "password": "testuser"
+}
+
+###
+POST {{url}}/auth/login/
+
+{
+    "username": "testuser",
+    "password": "testuser"
+}
+
+> {%
+    client.global.set("jwt_token", response.body.token);
+    console.log("JWT Token:", client.global.get("jwt_token"));
+%}
+
+###
+GET {{url}}/protected/user_demo/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
+GET {{url}}/protected/admin_demo/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+### Add admin role to user
+POST {{url}}/auth/user/addrole/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+    "role": "admin"
+}
+
+### **Item Routes**
+
+#### **Get All Items**
+GET {{url}}/items/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+#### **Get Item by ID**
+GET {{url}}/items/111
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+#### **Add a New Item**
+POST {{url}}/items/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+    "name": "New Item",
+    "purchasePrice": 200.0,
+    "category": "SOUND",
+    "acquisitionDate": "2023-11-21",
+    "description": "MAKE SOMe MORE NOISE",
+    "studentId": 2
+}
+
+#### **Update an Item**
+PUT {{url}}/items/1
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+    "name": "Updated Item",
+    "purchasePrice": 150.0,
+    "category": "TOOL",
+    "acquisitionDate": "2023-11-22",
+    "description": "An updated description"
+}
+
+#### **Delete an Item**
+DELETE {{url}}/items/2
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+#### **Assign an Item to a Student**
+POST {{url}}/items/{itemId}/students/1
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+#### **Get Items by Student**
+GET {{url}}/students/1/items
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+#### **Get Relevant Shops for a Category**
+GET {{url}}/shops/SOUND
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+#### **Filter Items by Category**
+GET {{url}}/items/filter?category=SOUND
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+#### **Summarize Total Purchase Price of Items Borrowed by Each Student**
+GET {{url}}/students/items/summary
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
